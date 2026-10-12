@@ -600,6 +600,32 @@
                         }
     },
     {
+      "description":    "TUYA TS0601 Siterwell Radiator Thermostat",
+      "modelNames":     ["_TZE200_04yfvweb", "_TZE200_2cs6g9i7", "_TZE200_hhrtiq0x", "_TZE200_jeaxp72v", "_TZE200_kfvq6avy", "_TZE200_lrznf59v", "_TZE200_owwdxjbx", "_TZE200_ps5v5jor", "_TZE200_zivfvd7h", "_TZE204_woww89ip"],
+      "properties":     ["tuyaDataPoints"],
+      "actions":        ["tuyaDataPoints"],
+      "exposes":        ["battery", "thermostat", "childLock", "windowDetection", "valveDetection", "temperatureOffset"],
+      "options":        {
+                          "tuyaDataPoints":
+                          {
+                            "2":    {"name": "targetTemperature", "type": "value", "divider": 10, "action": true},
+                            "3":    {"name": "temperature", "type": "value", "divider": 10},
+                            "4":    {"name": "systemMode", "type": "enum", "action": true},
+                            "7":    {"name": "childLock", "type": "bool", "action": true},
+                            "14":   {"name": "running", "type": "bool"},
+                            "18":   {"name": "windowDetection", "type": "bool", "action": true},
+                            "20":   {"name": "valveDetection", "type": "bool", "action": true},
+                            "21":   {"name": "battery", "type": "value"},
+                            "44":   {"name": "temperatureOffset", "type": "value", "divider": 10, "action": true}
+                          },
+                          "targetTemperature": {"min": 5, "max": 30, "step": 0.5},
+                          "systemMode": {"enum": ["off", "auto", "heat"]},
+                          "temperatureOffset": {"min": -9, "max": 9, "step": 0.5},
+                          "valveDetection": {"type": "toggle", "icon": "mdi:valve"},
+                          "runningStatus": true
+                        }
+    },
+    {
       "description":    "TUYA TS0601 Radiator Thermostat (Type B)",
       "modelNames":     ["_TZE200_6rdj8dzm", "_TZE200_9xfjixap", "_TZE200_bvu2wnxz", "_TZE200_hvaxb2tc", "_TZE200_jkfbph7l", "_TZE200_p3dbf6qs", "_TZE200_rxntag7i", "_TZE200_rxq4iti9", "_TZE200_yqgbrdyo", "_TZE204_o3x45p96", "_TZE204_ogx8u5z6", "_TZE284_c6wv4xyo", "_TZE284_o3x45p96", "_TZE284_p3dbf6qs"],
       "properties":     ["tuyaDataPoints", "tuyaDailyThermostatProgram"],
