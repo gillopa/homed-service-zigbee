@@ -92,7 +92,9 @@ DeviceList::DeviceList(QSettings *config, QObject *parent) : QObject(parent), m_
 
     m_libraryDir.setPath(config->value("device/library", homed->basePath().append("share/homed-zigbee")).toString());
     m_externalDir.setPath(config->value("device/external", "/opt/homed-zigbee/external").toString());
+
     m_otaDir.setPath(config->value("device/ota", "/opt/homed-zigbee/ota").toString());
+    m_otaBlock = static_cast <quint8> (config->value("device/block", 0).toInt());
 
     m_names = config->value("mqtt/names", false).toBool();
     m_debounce = config->value("mqtt/debounce", true).toBool();
@@ -666,16 +668,10 @@ void DeviceList::recognizeDevice(const Device &device)
 {
     QList <quint16> list =
     {
-        CLUSTER_POWER_CONFIGURATION,
         CLUSTER_ON_OFF,
         CLUSTER_ANALOG_INPUT,
-        CLUSTER_ANALOG_OUTPUT,
-        CLUSTER_WINDOW_COVERING,
-        CLUSTER_THERMOSTAT,
-        CLUSTER_FAN_CONTROL,
         CLUSTER_SMART_ENERGY_METERING,
-        CLUSTER_ELECTRICAL_MEASUREMENT,
-        CLUSTER_IAS_ZONE
+        CLUSTER_ELECTRICAL_MEASUREMENT
     };
 
     for (auto it = device->endpoints().begin(); it != device->endpoints().end(); it++)

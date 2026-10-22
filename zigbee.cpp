@@ -1444,7 +1444,7 @@ void ZigBee::clusterCommandReceived(const Endpoint &endpoint, quint16 clusterId,
                     }
 
                     file.seek(qFromLittleEndian(request->fileOffset));
-                    buffer = file.read(request->maxDataSize);
+                    buffer = file.read(m_devices->otaBlock() && m_devices->otaBlock() < request->maxDataSize ? m_devices->otaBlock() : request->maxDataSize);
                     file.close();
 
                     response.status = 0x00;
@@ -2416,7 +2416,7 @@ void ZigBee::handleRequests(void)
 
     for (auto it = m_requests.begin(); it != m_requests.end(); NULL)
     {
-        if (it.value()->status() == RequestStatus::Finished || it.value()->status() == RequestStatus::Aborted || QDateTime::currentMSecsSinceEpoch() - it.value()->timestamp() > NETWORK_REQUEST_TIMEOUT)
+        if (it.value()->status() == RequestStatus::Finished || it.value()->status() == RequestStatus::Aborted || it.value()->timestamp() + NETWORK_REQUEST_TIMEOUT < QDateTime::currentMSecsSinceEpoch())
         {
             it = m_requests.erase(it);
             continue;
